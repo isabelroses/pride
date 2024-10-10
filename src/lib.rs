@@ -1,8 +1,5 @@
 use clap::ValueEnum;
-use nu_ansi_term::{
-    Color::{self as ansi_color, Rgb},
-    Style,
-};
+use nu_ansi_term::{Color::Rgb, Style};
 
 #[derive(Debug, Default, Clone, Copy, ValueEnum)]
 pub enum Flag {
@@ -25,15 +22,12 @@ pub enum StyleType {
 pub struct Color(u8, u8, u8);
 
 impl Color {
-    pub fn from((r, g, b): (u8, u8, u8)) -> Color {
-        Color(r, g, b)
-    }
-    pub fn to_rgb(&self) -> ansi_color {
+    pub fn to_style(&self) -> Style {
         Rgb(self.0, self.1, self.2)
     }
     pub fn is_dark(&self) -> bool {
         let luminance =
-            0.2126 * f64::from(self.0) + 0.7152 * f64::from(self.1) + 0.0722 * f64::from(self.2);
+            0.2126 * f64::from(color.0) + 0.7152 * f64::from(color.1) + 0.0722 * f64::from(color.2);
         luminance < 128.0
     }
 }
@@ -84,11 +78,12 @@ pub fn get_flag_color(flag: Flag) -> Colors {
     }
 }
 
-fn style_line(text: &str, colors: Vec<Color>, style: StyleType, grouping: usize) -> String {
+fn style_line(text: &str, flag: Flag, style: StyleType, grouping: usize) -> String {
+    let colors: Colors = get_flag_color(flag);
     let mut styled_text = String::new();
 
     for (i, c) in text.chars().enumerate() {
-        let color: &Color = colors.get((i / grouping) % colors.len()).unwrap();
+        let color: Color = &colors[(i / fin_grouping) % colors.len()];
         let styled_char = match style {
             StyleType::Bg => {
                 // Choose black or white for fg based on luminance
@@ -99,13 +94,13 @@ fn style_line(text: &str, colors: Vec<Color>, style: StyleType, grouping: usize)
                 };
 
                 &Style::new()
-                    .on(color.to_rgb())
+                    .on(color.to_style())
                     .fg(fg_color)
                     .paint(c.to_string())
                     .to_string()
             }
             StyleType::Fg => &Style::new()
-                .fg(color.to_rgb())
+                .fg(color.to_style())
                 .paint(c.to_string())
                 .to_string(),
         };
@@ -114,18 +109,17 @@ fn style_line(text: &str, colors: Vec<Color>, style: StyleType, grouping: usize)
     styled_text
 }
 
-pub fn apply_flag_colors(text: &str, flag: Flag, style: StyleType, grouping: usize) -> String {
-    let colors: Colors = get_flag_color(flag);
+pub fn apply_flag_color(text: &str, flag: Flag, style: StyleType, grouping: usize) -> String {
     let lines = text.split('\n');
     let mut styled_text = String::new();
 
     let fin_grouping = if grouping == 0 {
-        let mut max_len = 0;
-        for line in lines.clone() {
+        let max_len = 0;
+        for line in lines {
             if line.len() > max_len {
                 max_len = line.len();
             }
-        };
+        }
 
         if max_len >= colors.len() {
             max_len / colors.len()
@@ -137,16 +131,7 @@ pub fn apply_flag_colors(text: &str, flag: Flag, style: StyleType, grouping: usi
     };
 
     for line in lines {
-        let styled_line = style_line(
-            line,
-            colors
-                .clone()
-                .into_iter()
-                .map(Color::from)
-                .collect(),
-            style,
-            fin_grouping,
-        );
+        let styled_line = style_line(line, flag, style, fin_grouping);
         styled_text.push_str(&styled_line);
         styled_text.push('\n');
     }
