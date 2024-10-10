@@ -62,6 +62,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "clap-stdin"
+version = "0.5.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "471df7896633bfc1e7d3da5b598422891e4cb8931210168ec63ea586e285803f"
+dependencies = [
+ "thiserror",
+]
+
+[[package]]
 name = "clap_builder"
 version = "4.5.20"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -123,6 +132,7 @@ name = "pride-cli"
 version = "0.0.1"
 dependencies = [
  "clap",
+ "clap-stdin",
  "nu-ansi-term",
 ]
 
@@ -159,6 +169,26 @@ dependencies = [
  "proc-macro2",
  "quote",
  "unicode-ident",
+]
+
+[[package]]
+name = "thiserror"
+version = "1.0.64"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d50af8abc119fb8bb6dbabcfa89656f46f84aa0ac7688088608076ad2b459a84"
+dependencies = [
+ "thiserror-impl",
+]
+
+[[package]]
+name = "thiserror-impl"
+version = "1.0.64"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "08904e7672f5eb876eaaf87e0ce17857500934f4981c4a0ab2b4aa98baac7fc3"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]

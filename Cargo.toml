@@ -9,4 +9,5 @@ edition = "2021"
 
 [dependencies]
 clap = { version = "4.5.20", features = ["derive"] }
+clap-stdin = "0.5.1"
 nu-ansi-term = "0.50.1"

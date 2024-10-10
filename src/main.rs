@@ -1,6 +1,7 @@
 use pride_cli::{apply_flag_color, Flag, StyleType};
 
 use clap::Parser;
+use clap_stdin::MaybeStdin;
 
 /// Simple program to greet a person
 #[derive(Parser, Debug)]
@@ -19,7 +20,7 @@ struct Args {
     grouping: usize,
 
     /// The text to apply the flag to
-    text: String,
+    text: MaybeStdin<String>,
 }
 
 fn main() {
