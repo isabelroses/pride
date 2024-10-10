@@ -26,8 +26,9 @@ impl Color {
         Rgb(self.0, self.1, self.2)
     }
     pub fn is_dark(&self) -> bool {
-        let luminance =
-            0.2126 * f64::from(color.0) + 0.7152 * f64::from(color.1) + 0.0722 * f64::from(color.2);
+        let luminance = 0.2126 * f64::from(color.0)
+            + 0.7152 * f64::from(color.1)
+            + 0.0722 * f64::from(color.2);
         luminance < 128.0
     }
 }
