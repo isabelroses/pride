@@ -15,7 +15,7 @@ struct Args {
     style: StyleType,
 
     /// The grouping to apply
-    #[arg(short, long)]
+    #[arg(short, long, default_value = "0")]
     grouping: usize,
 
     /// The text to apply the flag to
