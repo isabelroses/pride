@@ -1,0 +1,12 @@
+[package]
+name = "pride-cli"
+version = "0.0.1"
+license = "MIT"
+description = "Give any string some pride!"
+homepage = "https://github.com/isabelroses/pride-cli"
+authors = ["Isabel Roses <isabel@isabelroses.com>"]
+edition = "2021"
+
+[dependencies]
+clap = { version = "4.5.20", features = ["derive"] }
+nu-ansi-term = "0.50.1"
