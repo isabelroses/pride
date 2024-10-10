@@ -72,13 +72,14 @@ pub fn apply_flag_color(text: &str, flag: Flag, style: StyleType, grouping: usiz
     } else {
         grouping
     };
+
     for (i, c) in text.chars().enumerate() {
         let color = &colors[(i / fin_grouping) % colors.len()];
         let styled_char = match style {
             StyleType::Bg => {
-                let luminance = 0.2126 * (color.0 as f64)
-                    + 0.7152 * (color.1 as f64)
-                    + 0.0722 * (color.2 as f64);
+                let luminance = 0.2126 * f64::from(color.0)
+                    + 0.7152 * f64::from(color.1)
+                    + 0.0722 * f64::from(color.2);
 
                 // Choose black or white for fg based on luminance
                 let fg_color = if luminance > 128.0 {
