@@ -20,6 +20,7 @@ struct Args {
     grouping: usize,
 
     /// The text to apply the flag to
+    #[clap(default_value = "-")]
     text: MaybeStdin<String>,
 }
 
