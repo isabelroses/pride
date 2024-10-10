@@ -1,5 +1,5 @@
 {
-  description = "Rust Project Template";
+  description = "pride cli";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
@@ -15,10 +15,16 @@
         );
     in
     {
-      packages = forAllSystems (pkgs: rec {
-        example = pkgs.callPackage ./default.nix { };
-        default = example;
-      });
+      packages = forAllSystems (
+        pkgs:
+        let
+          pride-cli = pkgs.callPackage ./default.nix { };
+        in
+        {
+          inherit pride-cli;
+          default = pride-cli;
+        }
+      );
 
       devShells = forAllSystems (pkgs: {
         default = pkgs.callPackage ./shell.nix { };
