@@ -1,4 +1,4 @@
-use pride::{apply_flag_color, Flag, StyleType};
+use pride::{apply_flag_colors, Flag, StyleType};
 
 use clap::Parser;
 use clap_stdin::MaybeStdin;
@@ -29,6 +29,6 @@ fn main() {
 
     println!(
         "{}",
-        apply_flag_color(&args.text, args.flag, args.style, args.grouping)
+        apply_flag_colors(&args.text, args.flag, args.style, args.grouping)
     );
 }
