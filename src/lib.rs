@@ -79,19 +79,9 @@ pub fn get_flag_color(flag: Flag) -> Colors {
     }
 }
 
-pub fn apply_flag_color(text: &str, flag: Flag, style: StyleType, grouping: usize) -> String {
+fn style_line(text: &str, flag: Flag, style: StyleType, grouping: usize) -> String {
     let colors: Colors = get_flag_color(flag);
     let mut styled_text = String::new();
-
-    let fin_grouping = if grouping == 0 {
-        if text.len() >= colors.len() {
-            text.len() / colors.len()
-        } else {
-            1
-        }
-    } else {
-        grouping
-    };
 
     for (i, c) in text.chars().enumerate() {
         let color: Color = &colors[(i / fin_grouping) % colors.len()];
@@ -116,6 +106,35 @@ pub fn apply_flag_color(text: &str, flag: Flag, style: StyleType, grouping: usiz
                 .to_string(),
         };
         styled_text.push_str(styled_char);
+    }
+    styled_text
+}
+
+pub fn apply_flag_color(text: &str, flag: Flag, style: StyleType, grouping: usize) -> String {
+    let lines = text.split('\n');
+    let mut styled_text = String::new();
+
+    let fin_grouping = if grouping == 0 {
+        let max_len = 0;
+        for line in lines {
+            if line.len() > max_len {
+                max_len = line.len();
+            }
+        }
+
+        if max_len >= colors.len() {
+            max_len / colors.len()
+        } else {
+            1
+        }
+    } else {
+        grouping
+    };
+
+    for line in lines {
+        let styled_line = style_line(line, flag, style, fin_grouping);
+        styled_text.push_str(&styled_line);
+        styled_text.push('\n');
     }
     styled_text
 }
