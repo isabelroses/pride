@@ -67,8 +67,10 @@ pub fn apply_flag_color(text: &str, flag: Flag, style: StyleType, grouping: usiz
     let colors = get_flag_color(flag);
     let mut styled_text = String::new();
 
-    let fin_grouping = if grouping == 0 {
+    let fin_grouping = if grouping == 0 && text.len() >= colors.len() {
         text.len() / colors.len()
+    } else if grouping == 0 {
+        1
     } else {
         grouping
     };
