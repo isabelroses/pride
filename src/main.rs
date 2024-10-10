@@ -1,4 +1,4 @@
-use pride_cli::{apply_flag_color, Flag, StyleType};
+use pride::{apply_flag_color, Flag, StyleType};
 
 use clap::Parser;
 use clap_stdin::MaybeStdin;
