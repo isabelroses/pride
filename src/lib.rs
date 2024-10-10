@@ -1,43 +1,22 @@
+use clap::ValueEnum;
 use nu_ansi_term::{Color::Rgb, Style};
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Default, Clone, Copy, ValueEnum)]
 pub enum Flag {
     Pride,
     Gay,
     Bisexual,
     Lesbian,
     Enby,
+    #[default]
     Trans,
 }
 
-impl Flag {
-    pub fn from(flag: &str) -> Self {
-        match flag {
-            "pride" => Flag::Pride,
-            "gay" => Flag::Gay,
-            "bisexual" => Flag::Bisexual,
-            "lesbian" => Flag::Lesbian,
-            "enby" => Flag::Enby,
-            "trans" => Flag::Trans,
-            _ => panic!("Invalid flag"),
-        }
-    }
-}
-
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Default, Clone, Copy, ValueEnum)]
 pub enum StyleType {
     Bg,
+    #[default]
     Fg,
-}
-
-impl StyleType {
-    pub fn from(style: &str) -> Self {
-        match style {
-            "bg" => StyleType::Bg,
-            "fg" => StyleType::Fg,
-            _ => panic!("Invalid style"),
-        }
-    }
 }
 
 pub fn get_flag_color(flag: Flag) -> Vec<(u8, u8, u8)> {

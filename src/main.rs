@@ -7,12 +7,12 @@ use clap::Parser;
 #[command(version, about, long_about = None)]
 struct Args {
     /// The flag to apply
-    #[arg(short, long, default_value = "trans")]
-    flag: String,
+    #[arg(short, long, default_value = "trans", value_enum)]
+    flag: Flag,
 
     /// The style to apply
-    #[arg(short, long, default_value = "fg")]
-    style: String,
+    #[arg(short, long, default_value = "fg", value_enum)]
+    style: StyleType,
 
     /// The grouping to apply
     #[arg(short, long)]
@@ -25,11 +25,8 @@ struct Args {
 fn main() {
     let args = Args::parse();
 
-    let flag = Flag::from(&args.flag);
-    let style = StyleType::from(&args.style);
-
     println!(
         "{}",
-        apply_flag_color(&args.text, flag, style, args.grouping)
+        apply_flag_color(&args.text, args.flag, args.style, args.grouping)
     );
 }
