@@ -3,7 +3,7 @@ let
   toml = (lib.importTOML ./Cargo.toml).package;
 in
 rustPlatform.buildRustPackage {
-  pname = "pride-cli";
+  pname = "pride";
   inherit (toml) version;
 
   src = lib.fileset.toSource {
@@ -23,6 +23,6 @@ rustPlatform.buildRustPackage {
     inherit (toml) homepage description;
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ isabelroses ];
-    mainPackage = "example";
+    mainPackage = "pride";
   };
 }
