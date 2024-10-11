@@ -1,4 +1,4 @@
-## Pride cli
+## Pride the cli
 
 Generate yourself some nice pride flag styled strings
 
@@ -14,11 +14,11 @@ We try to make this process as simple as possible, thats why all you need to do 
 1) Print "Your text of choice" with a bisexual flag added to the background which groups the colors by 3 before changing to the next.
 
 ```sh
-pride-cli "Your text of choice" --flag bisexual --grouping 3 --style bg
+pride "Your text of choice" --flag bisexual --grouping 3 --style bg
 ```
 
 2) Print "Mom, I like women" to with the recomended grouping, and styling the text
 
 ```sh
-pride-cli "Mom, I like women" --flag lesbian
+pride "Mom, I like women" --flag lesbian
 ```
